@@ -1,7 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-import * as plugin from "./pkg/obsiditero.js";
-import * as wasmbin from './pkg/obsiditero_bg.wasm';
+import mod from './pkg/obsiditero_bg.wasm';
+import * as obsiditero from './pkg/obsiditero_bg.js';
 
 interface MyPluginSettings {
 	mySetting: string;
@@ -74,14 +74,15 @@ export default class MyPlugin extends Plugin {
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			console.log('click', evt);
 		});
-
-		await plugin.default(Promise.resolve(wasmbin.default));
+		
+		const wasm = await WebAssembly.compile(mod).then(mod => WebAssembly.instantiate(mod, {"./obsiditero_bg.js": obsiditero}));
+		obsiditero.__wbg_set_wasm(wasm.exports);
+		obsiditero.onload(this);
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
 	onunload() {
-
 	}
 
 	async loadSettings() {
