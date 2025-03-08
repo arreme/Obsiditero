@@ -1,6 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-// Remember to rename these classes and interfaces!
+import * as plugin from "./pkg/obsiditero.js";
+import * as wasmbin from './pkg/obsiditero_bg.wasm';
 
 interface MyPluginSettings {
 	mySetting: string;
@@ -74,6 +75,7 @@ export default class MyPlugin extends Plugin {
 			console.log('click', evt);
 		});
 
+		await plugin.default(Promise.resolve(wasmbin.default));
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
