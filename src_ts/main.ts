@@ -74,7 +74,7 @@ export default class MyPlugin extends Plugin {
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			console.log('click', evt);
 		});
-		
+
 		const wasm = await WebAssembly.compile(mod).then(mod => WebAssembly.instantiate(mod, {"./obsiditero_bg.js": obsiditero}));
 		obsiditero.__wbg_set_wasm(wasm.exports);
 		obsiditero.onload(this);

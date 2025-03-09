@@ -1,12 +1,13 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsiditero",
 	"version": "1.0.0",
 	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
 	"main": "main.js",
 	"scripts": {
-		"dev": "node esbuild.config.mjs",
-		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"version": "node version-bump.mjs && git add manifest.json versions.json"
+		"dev": "wasm-pack build --out-dir ./build/wasm_out && node esbuild.config.mjs",
+		"build": "wasm-pack build --out-dir ./build/wasm_out && node esbuild.config.mjs production",
+		"version": "node version-bump.mjs && git add manifest.json versions.json",
+		"clean" : ""
 	},
 	"keywords": [],
 	"author": "",
