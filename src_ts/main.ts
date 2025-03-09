@@ -1,7 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-import mod from './pkg/obsiditero_bg.wasm';
-import * as obsiditero from './pkg/obsiditero_bg.js';
+import mod from '../build/wasm_out/obsiditero_bg.wasm';
+import * as obsiditero from '../build/wasm_out/obsiditero_bg.js';
 
 interface MyPluginSettings {
 	mySetting: string;
